@@ -1,0 +1,68 @@
+body {
+    background-color: #f0f0f0;
+}
+
+.editor-container {
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.text-editor {
+    min-height: 300px;
+    border-radius: 5px;
+    background-color: #272727;
+    color: #fff;
+}
+
+a {
+    position: relative;
+    color: blue;
+    text-decoration: underline;
+}
+.btn
+{
+    background-color: #272727;
+    color: #fff;
+    border: 1px solid #fff;
+}
+.btn:hover
+{
+    color: #fff;
+    background-color:#707070 ;
+}
+a:hover::after {
+    content: attr(href);
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 5px;
+    top: 100%;
+    left: 0;
+    white-space: nowrap;
+    z-index: 1;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+img {
+    display: block;
+    max-width:50%;
+    height: auto;
+    margin: 10px 0;
+}
+#scaleRange
+{
+    width: 20%;
+}
+#fontSelector
+{
+    border-radius: 4px;
+    background-color: #272727;
+    color: #fff;
+}
+#FontSelector option:hover
+{
+    background-color:#707070 ;
+}
