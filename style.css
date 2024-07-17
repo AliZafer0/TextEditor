@@ -98,19 +98,16 @@ img {
 
 /* Kod bloğunun arka plan rengini siyah yap */
 pre code {
-    background-color: #1e1e1e;
-    color: #ffffff;
+    background-color: #efc862 !important;
+    color: #000;
     display: block;
     padding: 20px;
     border-radius: 5px;
     position: relative;
+    white-space: pre-wrap;
 }
 
-/* Kopyalama butonu stili */
 .copy-code-button {
-    position: absolute;
-    top: 10rem;
-    right: 27.5rem;
     background-color: #272727;
     color: #fff;
     border: none;
@@ -119,7 +116,6 @@ pre code {
     border-radius: 5px;
     z-index: 10;
 }
-
 .copy-code-button:hover {
     background-color: #007bff;
 }

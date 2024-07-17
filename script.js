@@ -1,3 +1,138 @@
+function downloadHTML() {
+    var content = document.querySelector('.text-editor').innerHTML;
+
+    var css = `
+body {
+    background-color: #f0f0f0;
+}
+.editor-container {
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 20px;
+}
+.text-editor {
+    min-height: 300px;
+    border-radius: 5px;
+    background-color: #272727;
+    color: #fff;
+    white-space: pre-wrap;
+}
+a {
+    position: relative;
+    color: #fff;
+    text-decoration: none;
+}
+.btn {
+    background-color: #272727;
+    color: #fff;
+    border: 1px solid #fff;
+    height: 40px;
+}
+.btn:hover {
+    color: #fff;
+    background-color: #707070;
+}
+a:hover::after {
+    content: attr(href);
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 5px;
+    top: 100%;
+    left: 0;
+    white-space: nowrap;
+    z-index: 1;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+img {
+    display: block;
+    max-width: 50%;
+    height: auto;
+    margin: 10px 0;
+}
+.selected-image {
+    border: 2px solid #007bff;
+}
+.image-left {
+    display: block;
+    margin-right: auto;
+    margin-left: 0;
+}
+.image-right {
+    display: block;
+    margin-left: auto;
+    margin-right: 0;
+}
+.image-center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+pre code {
+    background-color: #efc862 !important;
+    color: #000;
+    display: block;
+    padding: 20px;
+    border-radius: 5px;
+    position: relative;
+    white-space: pre-wrap;
+}
+.copy-code-button {
+    position: absolute;
+    background-color: #272727;
+    color: #fff;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    z-index: 10;
+}
+.copy-code-button:hover {
+    background-color: #007bff;
+}
+`;
+
+    var htmlTemplate = `
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metin Editörü İçeriği</title>
+    <style>${css}</style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightBlock(block);
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="editor-container">
+            <div class="text-editor border p-3">${content}</div>
+        </div>
+    </div>
+</body>
+</html>
+`;
+
+    var blob = new Blob([htmlTemplate], { type: 'text/html' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'metin_editoru_icerik.html';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
 function formatText(command) {
     document.execCommand(command, false, null);
 }
@@ -131,18 +266,16 @@ function highlightCode() {
     // Yeni kod bloğu oluşturun ve içine seçili metni ekleyin
     var codeBlock = document.createElement('pre');
     var code = document.createElement('code');
-    code.textContent = selectedText.textContent;
+    var codeText = selectedText.textContent.replace(/([{};])/g, '$1\n');
+    code.textContent = codeText;
     code.classList.add('language-javascript'); // İstediğiniz dil sınıfını ekleyin
-    codeBlock.appendChild(code);
 
-    // Kopyala butonu oluşturun
+    // Kopyala butonunu kod bloğunun içine yerleştirin
     var copyButton = document.createElement('button');
     copyButton.textContent = 'Kopyala';
     copyButton.classList.add('copy-code-button');
-    copyButton.onclick = function() {
-        copyCodeToClipboard(codeBlock, copyButton);
-    };
 
+    codeBlock.appendChild(code);
     codeBlock.appendChild(copyButton);
 
     hljs.highlightElement(code);
@@ -154,21 +287,23 @@ function highlightCode() {
     var emptyParagraph = document.createElement('p');
     emptyParagraph.innerHTML = '<br>';
     codeBlock.parentNode.insertBefore(emptyParagraph, codeBlock.nextSibling);
+
+    // Kopyala butonuna tıklama olayını ekleyin
+    copyButton.addEventListener('click', function() {
+        copyCodeToClipboard(code);
+    });
 }
 
-function copyCodeToClipboard(codeBlock, button) {
-    button.style.display = 'none';
-
+function copyCodeToClipboard(code) {
     var range = document.createRange();
-    range.selectNode(codeBlock);
-    window.getSelection().removeAllRanges();
-    window.getSelection().addRange(range);
+    range.selectNodeContents(code);
+    var selection = window.getSelection();
+    selection.removeAllRanges();
+    selection.addRange(range);
     document.execCommand('copy');
-
-    button.style.display = 'block';
-
     alert('Kod kopyalandı!');
 }
+
 
 document.addEventListener('click', function(e) {
     if (!e.target.classList.contains('editable-image')) {
@@ -185,4 +320,10 @@ document.querySelector('.text-editor').addEventListener('input', function() {
     links.forEach(function(link) {
         link.setAttribute('title', link.getAttribute('href'));
     });
+});
+
+window.addEventListener('beforeunload', function (e) {
+    var confirmationMessage = 'Sayfayı yenilemek veya ayrılmak istediğinizden emin misiniz?';
+    (e || window.event).returnValue = confirmationMessage; // Standart dışı Chrome ve IE kullanımı
+    return confirmationMessage; // Standart
 });
