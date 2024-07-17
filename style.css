@@ -19,19 +19,18 @@ body {
 
 a {
     position: relative;
-    color: blue;
-    text-decoration: underline;
+    color: #fff;
+    text-decoration: none;
 }
-.btn
-{
+.btn {
     background-color: #272727;
     color: #fff;
     border: 1px solid #fff;
+    height: 40px;
 }
-.btn:hover
-{
+.btn:hover {
     color: #fff;
-    background-color:#707070 ;
+    background-color: #707070;
 }
 a:hover::after {
     content: attr(href);
@@ -48,21 +47,79 @@ a:hover::after {
 
 img {
     display: block;
-    max-width:50%;
+    max-width: 50%;
     height: auto;
     margin: 10px 0;
 }
-#scaleRange
-{
+#scaleRange {
     width: 20%;
 }
-#fontSelector
-{
+#fontSelector,
+#fontSizeSelector {
     border-radius: 4px;
     background-color: #272727;
     color: #fff;
+    border: 1px solid #fff;
+    padding: 5px;
+    margin-right: 5px;
 }
-#FontSelector option:hover
-{
-    background-color:#707070 ;
+
+#fontSelector option:hover,
+#fontSizeSelector option:hover {
+    background-color: #707070;
+}
+.selected-image {
+    border: 2px solid #007bff;
+}
+
+.editable-image {
+    max-width: 100%;
+    height: auto;
+    margin: 10px 0;
+}
+
+.image-left {
+    display: block;
+    margin-right: auto;
+    margin-left: 0;
+}
+
+.image-right {
+    display: block;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.image-center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Kod bloğunun arka plan rengini siyah yap */
+pre code {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    display: block;
+    padding: 20px;
+    border-radius: 5px;
+    position: relative;
+}
+
+/* Kopyalama butonu stili */
+.copy-code-button {
+    position: absolute;
+    top: 10rem;
+    right: 27.5rem;
+    background-color: #272727;
+    color: #fff;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    z-index: 10;
+}
+
+.copy-code-button:hover {
+    background-color: #007bff;
 }
