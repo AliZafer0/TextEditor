@@ -234,3 +234,15 @@ pre code {
         font-size: 10px;
     }
 }
+#emoji-button {
+    font-size: 18px;
+    cursor: pointer;
+  }
+  
+  #emoji-picker {
+    position: absolute;
+    top: 50px; /* Düğmenin altına gelecek şekilde ayarlayın */
+    right: 10px; /* Düğmenin sağında */
+    z-index: 1000;
+  }
+  

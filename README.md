@@ -36,7 +36,10 @@ Bu proje, temel ve gelişmiş düzenleme özelliklerine sahip bir metin editör�
 6. **Auto-Save**:
    - Belgeniz otomatik olarak kaydedilir; böylece verilerinizi kaybetme riskiniz azalır.
 
-7. **Sürüm Yönetimi**:
+7. **Emoji Menüsü**:
+   - Emoji ekleme menüsü yapıldı ve çalıştırıldı.
+
+8. **Sürüm Yönetimi**:
    - Önceki sürümlere dönün ve değişikliklerinizi izleyin.
 
 ## Kurulum
