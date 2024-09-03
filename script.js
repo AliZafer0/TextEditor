@@ -206,25 +206,25 @@ function changeBackgroundColor(color) {
     document.execCommand('backColor', false, color);
 }
 
-function alignSelectedElement(command) {
-    var selectedImage = document.querySelector('.selected-image');
-    var selection = window.getSelection();
-    var selectedText = selection.rangeCount > 0 ? selection.getRangeAt(0) : null;
+    function alignSelectedElement(command) {
+        var selectedImage = document.querySelector('.selected-image');
+        var selection = window.getSelection();
+        var selectedText = selection.rangeCount > 0 ? selection.getRangeAt(0) : null;
 
-    if (selectedImage) {
-        selectedImage.classList.remove('image-left', 'image-center', 'image-right');
+        if (selectedImage) {
+            selectedImage.classList.remove('image-left', 'image-center', 'image-right');
 
-        if (command === 'justifyLeft') {
-            selectedImage.classList.add('image-left');
-        } else if (command === 'justifyCenter') {
-            selectedImage.classList.add('image-center');
-        } else if (command === 'justifyRight') {
-            selectedImage.classList.add('image-right');
+            if (command === 'justifyLeft') {
+                selectedImage.classList.add('image-left');
+            } else if (command === 'justifyCenter') {
+                selectedImage.classList.add('image-center');
+            } else if (command === 'justifyRight') {
+                selectedImage.classList.add('image-right');
+            }
+        } else if (selectedText && !selectedText.collapsed) {
+            document.execCommand(command, false, null);
         }
-    } else if (selectedText && !selectedText.collapsed) {
-        document.execCommand(command, false, null);
     }
-}
 
 function clearImageSelection() {
     var selectedImage = document.querySelector('.selected-image');
@@ -380,22 +380,37 @@ document.getElementById('helpButton').addEventListener('click', () => {
     $('#helpModal').modal('show');
 });
 function createTable() {
-    const rows = prompt('Satır sayısını girin:');
-    const cols = prompt('Sütun sayısını girin:');
-    const caption = document.getElementById('caption').value;
-    if (rows && cols) {
-        let tableHtml = '<table border="1" style="width:100%">';
-        for (let i = 0; i < rows; i++) {
-            tableHtml += '<tr>';
-            for (let j = 0; j < cols; j++) {
-                tableHtml += '<td>&nbsp;</td>';
-            }
-            tableHtml += '</tr>';
+    const rows = document.getElementById('rowsInput').value;
+    const cols = document.getElementById('colsInput').value;
+
+    let tableHtml = '<div class="resizable-table-container" style="display: inline-block; text-align: left;">';
+    tableHtml += '<table border="1" style="width:100%">';
+    for (let i = 0; i < rows; i++) {
+        tableHtml += '<tr>';
+        for (let j = 0; j < cols; j++) {
+            tableHtml += '<td>&nbsp;</td>';
         }
-        tableHtml += '</table>';
-        if (caption) {
-            tableHtml = `<caption>${caption}</caption>` + tableHtml;
-        }
-        document.execCommand('insertHTML', false, tableHtml);
+        tableHtml += '</tr>';
+    }
+    tableHtml += '</table></div>';
+
+    document.querySelector('.text-editor').innerHTML += tableHtml;
+    $('#tableModal').modal('hide');
+}
+
+function insertHorizontalLine() {
+    document.execCommand('insertHorizontalRule', false, null);
+
+    // Son eklenen yatay çizgiyi seçmek için
+    const editor = document.querySelector('.text-editor');
+    const hrElements = editor.getElementsByTagName('hr');
+    const lastHr = hrElements[hrElements.length - 1];
+
+    // Seçilen rengi color picker'dan alıp çizgiye uygula
+    const selectedColor = document.getElementById('colorPicker').value;
+    if (lastHr) {
+        lastHr.style.borderColor = selectedColor;
+        lastHr.style.borderWidth = "1px";  // Çizgi kalınlığını da ayarlayabilirsiniz
+        lastHr.style.borderStyle = "solid"; // Çizgi stilini de ayarlayabilirsiniz (solid, dashed, etc.)
     }
 }
