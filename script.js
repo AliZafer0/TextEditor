@@ -156,12 +156,10 @@ function insertImage(event) {
             img.classList.add('editable-image');
             document.querySelector('.text-editor').appendChild(img);
 
-            // Ölçekleme çubuğunu göster
             var scaleRange = document.getElementById('scaleRange');
             scaleRange.classList.remove('d-none');
             scaleRange.value = 1;
 
-            // Resme tıklanıldığında seçili olarak işaretle
             img.addEventListener('click', function() {
                 var selectedImage = document.querySelector('.selected-image');
                 if (selectedImage) {
@@ -200,8 +198,12 @@ function changeFontSize(select) {
     }
 }
 
-function changeColor(color) {
+function changeFontColor(color) {
     document.execCommand('foreColor', false, color);
+}
+
+function changeBackgroundColor(color) {
+    document.execCommand('backColor', false, color);
 }
 
 function alignSelectedElement(command) {
@@ -257,73 +259,143 @@ function highlightCode() {
     var range = selection.getRangeAt(0);
     var selectedText = range.cloneContents();
 
-    // Seçili alanın zaten renklendirilmiş olup olmadığını kontrol edin
     if (selectedText.querySelector('pre code')) {
         alert('Bu alan zaten renklendirilmiş.');
         return;
     }
 
-    // Yeni kod bloğu oluşturun ve içine seçili metni ekleyin
     var codeBlock = document.createElement('pre');
     var code = document.createElement('code');
     var codeText = selectedText.textContent.replace(/([{};])/g, '$1\n');
     code.textContent = codeText;
-    code.classList.add('language-javascript'); // İstediğiniz dil sınıfını ekleyin
+    code.classList.add('language-javascript');
 
-    // Kopyala butonunu kod bloğunun içine yerleştirin
     var copyButton = document.createElement('button');
     copyButton.textContent = 'Kopyala';
     copyButton.classList.add('copy-code-button');
+    copyButton.onclick = function() {
+        navigator.clipboard.writeText(codeText);
+    }
 
     codeBlock.appendChild(code);
     codeBlock.appendChild(copyButton);
-
-    hljs.highlightElement(code);
-
     range.deleteContents();
     range.insertNode(codeBlock);
-
-    // Boş bir satır ekleyerek kod bloğu altından yazmaya devam edilmesini sağla
-    var emptyParagraph = document.createElement('p');
-    emptyParagraph.innerHTML = '<br>';
-    codeBlock.parentNode.insertBefore(emptyParagraph, codeBlock.nextSibling);
-
-    // Kopyala butonuna tıklama olayını ekleyin
-    copyButton.addEventListener('click', function() {
-        copyCodeToClipboard(code);
-    });
 }
 
-function copyCodeToClipboard(code) {
-    var range = document.createRange();
-    range.selectNodeContents(code);
-    var selection = window.getSelection();
-    selection.removeAllRanges();
-    selection.addRange(range);
-    document.execCommand('copy');
-    alert('Kod kopyalandı!');
+function showFindReplace() {
+    $('#findReplaceModal').modal('show');
 }
 
+function findAndReplace() {
+    var findText = document.getElementById('findInput').value;
+    var replaceText = document.getElementById('replaceInput').value;
 
-document.addEventListener('click', function(e) {
-    if (!e.target.classList.contains('editable-image')) {
-        clearImageSelection();
+    var content = document.querySelector('.text-editor').innerHTML;
+    var regex = new RegExp(findText, 'g');
+    content = content.replace(regex, replaceText);
+
+    document.querySelector('.text-editor').innerHTML = content;
+    $('#findReplaceModal').modal('hide');
+}
+
+function showTemplates() {
+    $('#templatesModal').modal('show');
+}
+
+function insertTemplate(template) {
+    var templateContent = '';
+
+    if (template === 'template1') {
+        templateContent = '<h1>Şablon 1 Başlık</h1><p>Bu şablon 1 içeriğidir.</p>';
+    } else if (template === 'template2') {
+        templateContent = '<h2>Şablon 2 Başlık</h2><ul><li>Öğe 1</li><li>Öğe 2</li></ul>';
+    }
+
+    document.querySelector('.text-editor').innerHTML += templateContent;
+    $('#templatesModal').modal('hide');
+}
+
+function insertTable() {
+    var table = '<table class="table table-bordered"><thead><tr><th>Başlık 1</th><th>Başlık 2</th></tr></thead><tbody><tr><td>Veri 1</td><td>Veri 2</td></tr></tbody></table>';
+    document.querySelector('.text-editor').innerHTML += table;
+}
+
+function undo() {
+    document.execCommand('undo', false, null);
+}
+
+function redo() {
+    document.execCommand('redo', false, null);
+}
+function insertTemplate(templateId) {
+    var content;
+    switch (templateId) {
+        case 'template1':
+            content = '<h1>Şablon 1 Başlığı</h1><p>Bu, şablon 1 içeridir. Bu şablon başlık ve kısa açıklama içerir.</p>';
+            break;
+        case 'template2':
+            content = '<h2>Şablon 2 Başlığı</h2><ul><li>Liste öğesi 1</li><li>Liste öğesi 2</li></ul>';
+            break;
+        case 'template3':
+            content = '<h3>Şablon 3 Başlığı</h3><blockquote><p>Bu, bir alıntıdır.</p></blockquote>';
+            break;
+        case 'template4':
+            content = '<h1>Şablon 4 Başlığı</h1><p>Bir paragraf ve <a href="#">bağlantı</a> içeren şablon.</p>';
+            break;
+        case 'template5':
+            content = '<h1>Şablon 5 Başlığı</h1><p>Bu şablon bir tablo içerir:</p><table border="1" style="width:100%"><tr><td>1</td><td>2</td></tr><tr><td>3</td><td>4</td></tr></table>';
+            break;
+        case 'template6':
+            content = '<h1>Şablon 6 Başlığı</h1><p>Bir görsel ve açıklama içeren şablon.</p><img src="path/to/sample-image.jpg" alt="Görsel" style="max-width:100%; height:auto;">';
+            break;
+        // Diğer şablonlar burada tanımlanabilir
+        default:
+            content = '<p>Şablon seçilmedi.</p>';
+    }
+    document.querySelector('.text-editor').innerHTML += content;
+    $('#templatesModal').modal('hide');
+}
+const dropZone = document.getElementById('dropZone');
+
+dropZone.addEventListener('dragover', (event) => {
+    event.preventDefault();
+    dropZone.classList.add('dragover');
+});
+
+dropZone.addEventListener('dragleave', () => {
+    dropZone.classList.remove('dragover');
+});
+
+dropZone.addEventListener('drop', (event) => {
+    event.preventDefault();
+    dropZone.classList.remove('dragover');
+    const files = event.dataTransfer.files;
+    if (files.length > 0) {
+        insertImage({ target: { files } });
     }
 });
-
-document.addEventListener('keydown', deleteSelectedImage);
-
-document.querySelector('.text-editor').addEventListener('paste', handlePaste);
-
-document.querySelector('.text-editor').addEventListener('input', function() {
-    var links = this.querySelectorAll('a');
-    links.forEach(function(link) {
-        link.setAttribute('title', link.getAttribute('href'));
-    });
+// Yardım butonuna tıklama olayını yönetme
+document.getElementById('helpButton').addEventListener('click', () => {
+    $('#helpModal').modal('show');
 });
-
-window.addEventListener('beforeunload', function (e) {
-    var confirmationMessage = 'Sayfayı yenilemek veya ayrılmak istediğinizden emin misiniz?';
-    (e || window.event).returnValue = confirmationMessage; // Standart dışı Chrome ve IE kullanımı
-    return confirmationMessage; // Standart
-});
+function createTable() {
+    const rows = prompt('Satır sayısını girin:');
+    const cols = prompt('Sütun sayısını girin:');
+    const caption = document.getElementById('caption').value;
+    if (rows && cols) {
+        let tableHtml = '<table border="1" style="width:100%">';
+        for (let i = 0; i < rows; i++) {
+            tableHtml += '<tr>';
+            for (let j = 0; j < cols; j++) {
+                tableHtml += '<td>&nbsp;</td>';
+            }
+            tableHtml += '</tr>';
+        }
+        tableHtml += '</table>';
+        if (caption) {
+            tableHtml = `<caption>${caption}</caption>` + tableHtml;
+        }
+        document.execCommand('insertHTML', false, tableHtml);
+    }
+}

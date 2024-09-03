@@ -15,6 +15,7 @@ body {
     border-radius: 5px;
     background-color: #272727;
     color: #fff;
+    white-space: pre-wrap;
 }
 
 a {
@@ -22,16 +23,19 @@ a {
     color: #fff;
     text-decoration: none;
 }
+
 .btn {
     background-color: #272727;
     color: #fff;
     border: 1px solid #fff;
     height: 40px;
 }
+
 .btn:hover {
     color: #fff;
     background-color: #707070;
 }
+
 a:hover::after {
     content: attr(href);
     position: absolute;
@@ -51,31 +55,9 @@ img {
     height: auto;
     margin: 10px 0;
 }
-#scaleRange {
-    width: 20%;
-}
-#fontSelector,
-#fontSizeSelector {
-    border-radius: 4px;
-    background-color: #272727;
-    color: #fff;
-    border: 1px solid #fff;
-    padding: 5px;
-    margin-right: 5px;
-}
 
-#fontSelector option:hover,
-#fontSizeSelector option:hover {
-    background-color: #707070;
-}
 .selected-image {
     border: 2px solid #007bff;
-}
-
-.editable-image {
-    max-width: 100%;
-    height: auto;
-    margin: 10px 0;
 }
 
 .image-left {
@@ -96,7 +78,6 @@ img {
     margin-right: auto;
 }
 
-/* Kod bloğunun arka plan rengini siyah yap */
 pre code {
     background-color: #efc862 !important;
     color: #000;
@@ -108,6 +89,7 @@ pre code {
 }
 
 .copy-code-button {
+    position: absolute;
     background-color: #272727;
     color: #fff;
     border: none;
@@ -116,6 +98,93 @@ pre code {
     border-radius: 5px;
     z-index: 10;
 }
+
 .copy-code-button:hover {
     background-color: #007bff;
+}
+
+.modal-content {
+    background-color: #f0f0f0;
+}
+
+.modal-header {
+    background-color: #272727;
+    color: #fff;
+}
+
+.modal-footer {
+    background-color: #f0f0f0;
+}
+
+.modal-body {
+    background-color: #fff;
+}
+
+.table-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.table-grid div {
+    width: 100%;
+    height: 50px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    text-align: center;
+    line-height: 50px;
+    cursor: pointer;
+}
+
+.table-grid div.selected {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.drop-zone {
+    border: 2px dashed #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+    color: #666;
+}
+
+.drop-zone.dragover {
+    border-color: #007bff;
+    color: #007bff;
+}
+.editor-container {
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.text-editor {
+    min-height: 300px;
+    border-radius: 5px;
+    background-color: #272727;
+    color: #fff;
+    white-space: pre-wrap;
+    width: 100%;
+    padding: 10px;
+    resize: none;
+    overflow: auto;
+}
+
+.drop-zone {
+    border: 2px dashed #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+    color: #666;
+    margin-top: 20px;
+}
+
+.drop-zone.dragover {
+    border-color: #007bff;
+    color: #007bff;
 }

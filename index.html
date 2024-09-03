@@ -18,6 +18,8 @@
                         <option value="Arial">Arial</option>
                         <option value="Times New Roman">Times New Roman</option>
                         <option value="Verdana">Verdana</option>
+                        <option value="Courier New">Courier New</option>
+                        <option value="Georgia">Georgia</option>
                     </select>
                     <select id="fontSizeSelector" onchange="changeFontSize(this)">
                         <option value="12px">12px</option>
@@ -27,15 +29,21 @@
                         <option value="20px">20px</option>
                         <option value="24px">24px</option>
                         <option value="30px">30px</option>
+                        <option value="36px">36px</option>
                     </select>
-                    <input type="color" id="colorPicker" class="btn" onchange="changeColor(this.value)">
-                    <button type="button" class="btn" onclick="formatText('bold')"><b>Kalın</b></button>
-                    <button type="button" class="btn" onclick="formatText('italic')"><i>İtalik</i></button>
-                    <button type="button" class="btn" onclick="formatText('underline')"><u>Altı Çizili</u></button>
-                    <button type="button" class="btn" onclick="promptLink()">Link Ekle</button>
+                    <input type="color" id="colorPicker" class="btn" onchange="changeFontColor(this.value)">
+                    <button type="button" class="btn" onclick="formatText('bold')"><i class="fas fa-bold"></i></button>
+                    <button type="button" class="btn" onclick="formatText('italic')"><i class="fas fa-italic"></i></button>
+                    <button type="button" class="btn" onclick="formatText('underline')"><i class="fas fa-underline"></i></button>
+                    <button type="button" class="btn" onclick="promptLink()"><i class="fas fa-link"></i></button>
                     <input type="file" id="imageInput" class="d-none" accept="image/*" onchange="insertImage(event)">
-                    <button type="button" class="btn" onclick="document.getElementById('imageInput').click()">Resim Ekle</button>
-                    <button type="button" class="btn" onclick="highlightCode()">Kodu Renklendir</button>
+                    <button type="button" class="btn" onclick="document.getElementById('imageInput').click()"><i class="fas fa-image"></i></button>
+                    <button type="button" class="btn" onclick="highlightCode()"><i class="fas fa-code"></i></button>
+                    <button type="button" class="btn" onclick="showFindReplace()"><i class="fas fa-search"></i></button>
+                    <button type="button" class="btn" onclick="showTemplates()"><i class="fas fa-file-alt"></i></button>
+                    <button type="button" class="btn" onclick="insertTable()"><i class="fas fa-table"></i></button>
+                    <button type="button" class="btn" onclick="undo()"><i class="fas fa-undo"></i></button>
+                    <button type="button" class="btn" onclick="redo()"><i class="fas fa-redo"></i></button>
                 </div>
                 <div class="btn-group ml-auto" role="group">
                     <button type="button" class="btn" onclick="alignSelectedElement('justifyLeft')"><i class="fas fa-align-left"></i></button>
@@ -45,9 +53,139 @@
             </div>
             <div class="text-editor border p-3" contenteditable="true"></div>
             <button type="button" class="btn" onclick="downloadHTML()">Gönder</button>
-            <input type="range" id="scaleRange" class="d-none" min="0.1" max="1" step="0.1" value="1" onchange="scaleImage(event)">
+            <input type="range" id="scaleRange" class="d-none" min="0.1" max="2" step="0.1" value="1" onchange="scaleImage(event)">
         </div>
     </div>
+<!-- Yardım Modalı -->
+<div id="helpModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Yardım</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Metin düzenleyici ile ilgili yardım içeriği burada olacak.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Tablo Seçici Modalı -->
+<div id="tableModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tablo Oluştur</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="tableGrid" class="table-grid">
+                    <!-- Tablo hücreleri buraya eklenecek -->
+                </div>
+                <div class="form-group">
+                    <label for="caption">Tablo Başlığı:</label>
+                    <input type="text" id="caption" class="form-control">
+                </div>
+                <button type="button" class="btn btn-primary" onclick="createTable()">Tabloyu Ekle</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Find & Replace Modal -->
+    <div id="findReplaceModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Bul & Değiştir</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="findInput">Bul:</label>
+                        <input type="text" id="findInput" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="replaceInput">Değiştir:</label>
+                        <input type="text" id="replaceInput" class="form-control">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="findAndReplace()">Değiştir</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="dropZone" class="drop-zone">
+        Buraya sürükleyip bırakın
+    </div>
+    <!-- Templates Modal -->
+<!-- Templates Modal -->
+<div id="templatesModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Şablonlar</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="template-option" onclick="insertTemplate('template1')">
+                            <img src="path/to/template1-preview.jpg" class="img-fluid" alt="Şablon 1">
+                            <p>Başlık 1</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="template-option" onclick="insertTemplate('template2')">
+                            <img src="path/to/template2-preview.jpg" class="img-fluid" alt="Şablon 2">
+                            <p>Başlık 2</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="template-option" onclick="insertTemplate('template3')">
+                            <img src="path/to/template3-preview.jpg" class="img-fluid" alt="Şablon 3">
+                            <p>Başlık 3</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="template-option" onclick="insertTemplate('template4')">
+                            <img src="path/to/template4-preview.jpg" class="img-fluid" alt="Şablon 4">
+                            <p>Başlık 4</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="template-option" onclick="insertTemplate('template5')">
+                            <img src="path/to/template5-preview.jpg" class="img-fluid" alt="Şablon 5">
+                            <p>Başlık 5</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="template-option" onclick="insertTemplate('template6')">
+                            <img src="path/to/template6-preview.jpg" class="img-fluid" alt="Şablon 6">
+                            <p>Başlık 6</p>
+                        </div>
+                    </div>
+                    <!-- Daha fazla şablon seçeneği ekleyebilirsiniz -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
