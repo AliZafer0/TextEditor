@@ -1,39 +1,77 @@
 body {
     background-color: #f0f0f0;
+    margin: 0;
+    font-family: Arial, sans-serif;
 }
 
+/* Genel ayarlar */
 .editor-container {
     background-color: white;
     border: 1px solid #ccc;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     padding: 20px;
+    max-width: 100%;
+    box-sizing: border-box;
+    
 }
 
+/* Text editor */
 .text-editor {
     min-height: 300px;
     border-radius: 5px;
     background-color: #272727;
     color: #fff;
     white-space: pre-wrap;
+    width: 100%;
+    padding: 10px;
+    resize: none;
+    overflow: auto;
+    box-sizing: border-box;
 }
 
-a {
-    position: relative;
-    color: #fff;
-    text-decoration: none;
+/* Modal içeriği */
+.modal-content {
+    max-width: 90%;
+    margin: auto;
+    border-radius: 5px;
 }
 
+/* Drop zone */
+.drop-zone {
+    border: 2px dashed #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+    color: #666;
+    margin-top: 20px;
+}
+
+.drop-zone.dragover {
+    border-color: #007bff;
+    color: #007bff;
+}
+
+/* Butonlar */
 .btn {
     background-color: #272727;
     color: #fff;
     border: 1px solid #fff;
     height: 40px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .btn:hover {
     color: #fff;
     background-color: #707070;
+}
+
+/* Linkler */
+a {
+    position: relative;
+    color: #fff;
+    text-decoration: none;
 }
 
 a:hover::after {
@@ -49,6 +87,7 @@ a:hover::after {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Görsel ayarları */
 img {
     display: block;
     max-width: 50%;
@@ -78,6 +117,7 @@ img {
     margin-right: auto;
 }
 
+/* Kod blokları */
 pre code {
     background-color: #efc862 !important;
     color: #000;
@@ -103,23 +143,7 @@ pre code {
     background-color: #007bff;
 }
 
-.modal-content {
-    background-color: #f0f0f0;
-}
-
-.modal-header {
-    background-color: #272727;
-    color: #fff;
-}
-
-.modal-footer {
-    background-color: #f0f0f0;
-}
-
-.modal-body {
-    background-color: #fff;
-}
-
+/* Grid table */
 .table-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -143,48 +167,70 @@ pre code {
     color: #fff;
 }
 
-.drop-zone {
-    border: 2px dashed #ccc;
-    border-radius: 5px;
-    padding: 20px;
+/* Modal header ve footer */
+.modal-header, .modal-footer {
+    padding: 10px;
     text-align: center;
-    color: #666;
 }
 
-.drop-zone.dragover {
-    border-color: #007bff;
-    color: #007bff;
-}
-.editor-container {
-    background-color: white;
-    border: 1px solid #ccc;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    padding: 20px;
-}
-
-.text-editor {
-    min-height: 300px;
-    border-radius: 5px;
+.modal-header {
     background-color: #272727;
     color: #fff;
-    white-space: pre-wrap;
-    width: 100%;
-    padding: 10px;
-    resize: none;
-    overflow: auto;
 }
 
-.drop-zone {
-    border: 2px dashed #ccc;
-    border-radius: 5px;
-    padding: 20px;
-    text-align: center;
-    color: #666;
-    margin-top: 20px;
+.modal-footer {
+    background-color: #f0f0f0;
 }
 
-.drop-zone.dragover {
-    border-color: #007bff;
-    color: #007bff;
+.modal-body {
+    background-color: #fff;
+}
+
+/* Responsive Breakpoints */
+
+/* Tablet (768px ve altı) */
+@media (max-width: 768px) {
+    .editor-container {
+        padding: 10px;
+    }
+    
+    .text-editor {
+        min-height: 200px; /* Daha küçük ekranlar için */
+    }
+
+    .table-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 5px;
+    }
+
+    .table-grid div {
+        height: 40px;
+        font-size: 12px;
+    }
+
+    .drop-zone {
+        padding: 10px;
+        font-size: 12px;
+    }
+}
+
+/* Mobil (480px ve altı) */
+@media (max-width: 480px) {
+    .editor-container {
+        padding: 50px;
+    }
+
+    .text-editor {
+        min-height: 150px;
+    }
+
+    .table-grid div {
+        height: 30px;
+        font-size: 10px;
+    }
+
+    .drop-zone {
+        padding: 5px;
+        font-size: 10px;
+    }
 }
