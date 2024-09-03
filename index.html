@@ -36,7 +36,7 @@
     <div class="container mt-5">
         <div class="editor-container">
             <div class="btn-toolbar mb-2" role="toolbar">
-                <div class="btn-group mr-2" role="group">
+                <div class="btn-group pl-1" role="group">
                     <select id="fontSelector" onchange="changeFont(this)">
                         <option value="Arial">Arial</option>
                         <option value="Times New Roman">Times New Roman</option>
@@ -44,6 +44,8 @@
                         <option value="Courier New">Courier New</option>
                         <option value="Georgia">Georgia</option>
                     </select>
+                </div>
+                <div class="btn-group" role="group">
                     <select id="fontSizeSelector" onchange="changeFontSize(this)">
                         <option value="12px">12px</option>
                         <option value="14px">14px</option>
@@ -55,10 +57,16 @@
                         <option value="36px">36px</option>
                     </select>
                     <input type="color" id="colorPicker" class="btn" onchange="changeFontColor(this.value)">
-                    <button type="button" class="btn" onclick="formatText('bold')"><i class="fas fa-bold"></i></button>
-                    <button type="button" class="btn" onclick="formatText('italic')"><i class="fas fa-italic"></i></button>
-                    <button type="button" class="btn" onclick="formatText('underline')"><i class="fas fa-underline"></i></button>
-                    <button type="button" class="btn" onclick="promptLink()"><i class="fas fa-link"></i></button>
+                    <button type="button" class="btn p-0" onclick="formatText('bold')"><i class="fas fa-bold"></i></button>
+                    <button type="button" class="btn p-0" onclick="formatText('italic')"><i class="fas fa-italic"></i></button>
+                    <button type="button" class="btn p-0" onclick="formatText('underline')"><i class="fas fa-underline"></i></button>
+                </div>
+                <div class="btn-group" role="group">
+                    
+                    
+                    
+
+                        
                     <input type="file" id="imageInput" class="d-none" accept="image/*" onchange="insertImage(event)">
                     <button class="btn" onclick="toggleEmojiPicker()"><i class="fas fa-smile"></i></button>
                     <div id="emojiPicker" class="emoji-picker">
@@ -125,18 +133,27 @@
                         <div>👄</div>
                         <!-- Daha fazla emoji ekleyebilirsiniz -->
                     </div>
-                    <button type="button" class="btn" onclick="document.getElementById('imageInput').click()"><i class="fas fa-image"></i></button>
-                    <button type="button" class="btn" onclick="highlightCode()"><i class="fas fa-code"></i></button>
+                    
+                    
                     <button type="button" class="btn" onclick="showFindReplace()"><i class="fas fa-search"></i></button>
                     <button type="button" class="btn" onclick="showTemplates()"><i class="fas fa-file-alt"></i></button>
                     <button type="button" class="btn" onclick="insertTable()"><i class="fas fa-table"></i></button>
-                    <button type="button" class="btn" onclick="undo()"><i class="fas fa-undo"></i></button>
-                    <button type="button" class="btn" onclick="redo()"><i class="fas fa-redo"></i></button>
                 </div>
-                <div class="btn-group ml-auto" role="group">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn" onclick="promptLink()"><i class="fas fa-link"></i></button>
+                    <button type="button" class="btn" onclick="highlightCode()"><i class="fas fa-code"></i></button>
+                    <button type="button" class="btn" onclick="document.getElementById('imageInput').click()"><i class="fas fa-image"></i></button>
+                </div>
+                <div class="btn-group" role="group">
                     <button type="button" class="btn" onclick="alignSelectedElement('justifyLeft')"><i class="fas fa-align-left"></i></button>
                     <button type="button" class="btn" onclick="alignSelectedElement('justifyCenter')"><i class="fas fa-align-center"></i></button>
                     <button type="button" class="btn" onclick="alignSelectedElement('justifyRight')"><i class="fas fa-align-right"></i></button>
+                </div>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn" onclick="undo()"><i class="fas fa-undo"></i></button>
+                    <button type="button" class="btn" onclick="redo()"><i class="fas fa-redo"></i></button>
+                    <button type="button" class="btn ml-4" ><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                    
                 </div>
             </div>
             <div class="text-editor border p-3 drop-zone" id="dropZone" contenteditable="true"></div>

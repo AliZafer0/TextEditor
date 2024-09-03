@@ -13,7 +13,6 @@ body {
     padding: 20px;
     max-width: 100%;
     box-sizing: border-box;
-    
 }
 
 /* Text editor */
@@ -60,6 +59,7 @@ body {
     height: 40px;
     width: 100%;
     box-sizing: border-box;
+    padding: 10px;
 }
 
 .btn:hover {
@@ -246,3 +246,72 @@ pre code {
     z-index: 1000;
   }
   
+#fontSelector {
+    border: none; /* Kenarlıkları kaldırır */
+    outline: none; /* Odaklanma kenarlığını kaldırır */
+    background-color: transparent; /* Arka plan rengini şeffaf yapar */
+    text-align: center; /* Yazıyı ortalar */
+    padding: 5px; /* İç boşluk ekler */
+    font-size: 16px; /* Yazı boyutunu ayarlar, isteğe bağlı */
+    color: white;
+}
+
+#fontSelector option {
+    text-align: center; /* Seçeneklerin içindeki yazıyı ortalar */
+    color: black;
+}
+
+
+
+.btn-group {
+    background-color: #7C4DFF;
+    padding: 8px 17px;
+    margin-right: 1px;
+}
+
+.btn-group .btn {
+    background-color: transparent; /* Arka plan rengini kaldırın */
+    box-shadow: none; /* Gölgeyi kaldırın */
+    border-radius: 0; /* Kenar köşelerini kaldırın (isteğe bağlı) */
+    border: none;
+}
+
+.btn-group .btn:focus, 
+.btn-group .btn:hover {
+    background-color: transparent; /* Üzerine gelindiğinde veya seçildiğinde arka plan rengini kaldırın */
+    border-color: none; /* Üzerine gelindiğinde çizgi rengini değiştirebilirsiniz */
+}
+
+#colorPicker {
+    width: 100px; /* Genişlik */
+    height: 50%; /* Yükseklik */
+    padding: 0; /* İç boşlukları kaldırın */
+    margin-left: 10px;
+    margin-top:9px;
+    border: 2px solid rgb(255, 255, 255);
+    border-radius: 5px;
+}
+
+/* Webkit tarayıcıları için daha fazla stil */
+input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+input[type="color"]::-webkit-color-swatch {
+    border: none; /* Kenarlığı kaldırın */
+    border-radius: 4px; /* Kenar köşeleri yuvarlatma */
+}
+
+#fontSizeSelector {
+    border: none; /* Çerçeveyi kaldırır */
+    background-color: transparent; /* Arka plan rengini kaldırır */
+    box-shadow: none; /* Gölgeyi kaldırır */
+    padding: 0; /* İç boşlukları kaldırır */
+    outline: none; /* Odaklanma kenarlığını kaldırır */
+    font-size: 16px; /* Yazı tipi boyutunu ayarlayabilirsiniz */
+    border-radius: 0; /* Kenar köşelerini yuvarlatır (isteğe bağlı) */
+}
+
+#fontSizeSelector:focus {
+    outline: none; /* Odaklanma kenarlığını kaldırır */
+}
