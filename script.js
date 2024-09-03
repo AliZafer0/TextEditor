@@ -347,7 +347,7 @@ function insertTemplate(templateId) {
             content = '<h1>Şablon 5 Başlığı</h1><p>Bu şablon bir tablo içerir:</p><table border="1" style="width:100%"><tr><td>1</td><td>2</td></tr><tr><td>3</td><td>4</td></tr></table>';
             break;
         case 'template6':
-            content = '<h1>Şablon 6 Başlığı</h1><p>Bir görsel ve açıklama içeren şablon.</p><img src="path/to/sample-image.jpg" alt="Görsel" style="max-width:100%; height:auto;">';
+            content = '<h1>Şablon 6 Başlığı</h1><p>Bir görsel ve açıklama içeren şablon.</p><img src="images/sablon-6.png" alt="Görsel" style="max-width:100%; height:auto;">';
             break;
         // Diğer şablonlar burada tanımlanabilir
         default:

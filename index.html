@@ -51,7 +51,7 @@
                     <button type="button" class="btn" onclick="alignSelectedElement('justifyRight')"><i class="fas fa-align-right"></i></button>
                 </div>
             </div>
-            <div class="text-editor border p-3" contenteditable="true"></div>
+            <div class="text-editor border p-3 drop-zone" id="dropZone"  contenteditable="true"></div>
             <button type="button" class="btn" onclick="downloadHTML()">Gönder</button>
             <input type="range" id="scaleRange" class="d-none" min="0.1" max="2" step="0.1" value="1" onchange="scaleImage(event)">
         </div>
@@ -123,9 +123,7 @@
             </div>
         </div>
     </div>
-    <div id="dropZone" class="drop-zone">
-        Buraya sürükleyip bırakın
-    </div>
+
     <!-- Templates Modal -->
 <!-- Templates Modal -->
 <div id="templatesModal" class="modal fade" tabindex="-1" role="dialog">
@@ -141,37 +139,37 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="template-option" onclick="insertTemplate('template1')">
-                            <img src="path/to/template1-preview.jpg" class="img-fluid" alt="Şablon 1">
+                            <img src="images/sablon-1.png" class="img-fluid" alt="Şablon 1">
                             <p>Başlık 1</p>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="template-option" onclick="insertTemplate('template2')">
-                            <img src="path/to/template2-preview.jpg" class="img-fluid" alt="Şablon 2">
+                            <img src="images/sablon-2.png" class="img-fluid" alt="Şablon 2">
                             <p>Başlık 2</p>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="template-option" onclick="insertTemplate('template3')">
-                            <img src="path/to/template3-preview.jpg" class="img-fluid" alt="Şablon 3">
+                            <img src="images/sablon-3.png" class="img-fluid" alt="Şablon 3">
                             <p>Başlık 3</p>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="template-option" onclick="insertTemplate('template4')">
-                            <img src="path/to/template4-preview.jpg" class="img-fluid" alt="Şablon 4">
+                            <img src="images/sablon-4.png" class="img-fluid" alt="Şablon 4">
                             <p>Başlık 4</p>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="template-option" onclick="insertTemplate('template5')">
-                            <img src="path/to/template5-preview.jpg" class="img-fluid" alt="Şablon 5">
+                            <img src="images/sablon-5.png" class="img-fluid" alt="Şablon 5">
                             <p>Başlık 5</p>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="template-option" onclick="insertTemplate('template6')">
-                            <img src="path/to/template6-preview.jpg" class="img-fluid" alt="Şablon 6">
+                            <img src="images/sablon-6.png" class="img-fluid" alt="Şablon 6">
                             <p>Başlık 6</p>
                         </div>
                     </div>
